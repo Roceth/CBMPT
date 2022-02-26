@@ -1,0 +1,5 @@
+plugins:
+    - random_consuelo
+
+script:
+    - random_consuelo.consuel('consu',options)

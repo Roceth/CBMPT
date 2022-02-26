@@ -1,0 +1,5 @@
+plugins:
+    - pre_random
+
+script:
+    - pre_random.preg_ran('pregun',options)
