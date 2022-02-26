@@ -1,0 +1,6 @@
+plugins:
+    - random_greeting
+
+script:
+    - set_slot []
+    - random_greeting.saludos('greeting')
