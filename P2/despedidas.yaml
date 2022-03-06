@@ -1,6 +1,0 @@
-plugins:
-    - random_despedidas
-
-script:
-    - set_slot []
-    - random_despedidas.despedida('despedid')

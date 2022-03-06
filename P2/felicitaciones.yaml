@@ -1,6 +1,0 @@
-plugins:
-    - felici_rand
-
-script:
-    - set_slot []
-    - felici_rand.felicidades('feli')

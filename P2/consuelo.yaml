@@ -1,7 +1,0 @@
-plugins:
-    - random_consuelo
-
-script:
-    - set_slot []
-    - random_consuelo.consuel('consu')
-

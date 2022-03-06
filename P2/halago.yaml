@@ -1,6 +1,0 @@
-plugins:
-    - random_halagos
-
-script:
-    - set_slot []
-    - random_halagos.halag('halg')
