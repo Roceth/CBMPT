@@ -1,5 +1,0 @@
-plugins:
-    - random_despedidas
-
-script:
-    - random_despedidas.despedida('despedid',options)

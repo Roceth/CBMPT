@@ -1,5 +1,0 @@
-plugins:
-    - felici_rand
-
-script:
-    - felici_rand.felicidades('feli',options)

@@ -1,5 +1,0 @@
-plugins:
-    - random_halagos
-
-script:
-    - random_halagos.halag('halg',options)
