@@ -287,7 +287,7 @@ strategies:
         - say "suerte"
 
     dua1:
-        - say "Un placer soy un chatbot que te ayudará a desarrollar tus objetivos y a motivarte a concluirlos si te gustaría saber misfunciones escribe info, si te gustaría saber empezar escribe continuar"
+        - say "Un placer soy un chatbot que te ayudará a desarrollar tus objetivos y a motivarte a concluirlos si te gustaría saber empezar escribe continuar"
         - input er4 | asign continuar:continuar info:info
         - if er4== "continuar" then solve desarr
         - if er4== "info" then solve infor
