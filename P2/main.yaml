@@ -1,0 +1,333 @@
+conversations:
+    - 'hello.yaml'
+    - 'halago.yaml'
+    - 'felicitaciones.yaml'
+    - 'despedidas.yaml'
+    - 'consuelo.yaml'
+    - 'pre.yaml'
+    
+slots:
+    - name
+
+url_apis:
+  demo: "http://127.0.0.1:5431/"
+
+strategies:
+
+    pregn:
+        - solve pre
+        - say pregun
+        - input preguntasclsk
+
+    consue:
+        - solve consuelo
+        - say consu
+
+    halg:
+        - solve halago
+        - say halg
+
+    salu:
+        - solve hello
+        - say greeting
+
+    felin:
+        - solve felicitaciones
+        - say feli
+
+    deped:
+        - solve despedidas
+        - say despedid
+
+    name:
+        - say "¿cúal es tu nombre?"
+        - input name
+        - remember name
+        - say "mucho gusto en conocerte"
+
+    excelent:
+        - say "me da mucho gusto que estés bien"
+
+    sorry:
+        - say "siento que no te encuentre bien"
+
+    something_else:
+        - say "creo que me dijiste algo que no entiendo bien"
+
+    objetivo:
+        - say "¿Cual es tu objetivo?"
+        - input obje
+        - remember obje
+        
+    estrate:
+        - say "¿tienes algun objetivo pensado?"
+        - input obj | asign afi:si niega:no
+        - if obj== "si" then solve objetivo
+        - if obj== "no" then solve parand
+
+    Probletarea:
+        - say "¿Consideras desagrable lo que quieres hacer?"
+        - input ac | asign si:afi no:niega
+        - if ac == "niega" then solve precursos
+        - if ac == "afi" then solve simil
+        
+    simil:
+        - say "¿Alguna vez has realizado alguna activiad similar y no se te ha hecho desagradable?"
+        - input ab | asign si:afi no:niega:no
+        - if ab == "niega" then solve precursos
+        - if ab == "afi" then solve oca
+
+    oca:
+        - say "¿Crees que puedas repetir lo mismo que hiciste esa ocasion?"
+        - input ad |asign si:afi no:niega
+        - if ad == "niega" then solve precursos
+        
+    precursos:
+        - solve halago 
+        - say "¿conoces a alguien que realice la actividad planteada?"
+        - input con | asign si:afi no:niega
+        - if con== "niega" then solve personaje
+        - if con== "afir" then solve persona
+
+    persona:
+        - "¿Esa persona te cae bien?"
+        - input cae | asign si:afi no:niega
+        - if cae == "niega" then solve personaje
+        - if cae == "afi" then solve cualiper
+
+    cualiper:
+        - say "¿como es esa persona?"
+        - input comes
+        - say "¿porque hace lo que hace?"
+        - input hacelo
+        - say "¿como crees que piensa esa persona?"
+        - input piensasa
+        - say "¿en que se parece a tí?"
+        - input pareceti
+        - say "¿porque te cae bien?"
+        - input caebien
+        - say "¿cuales actitudes que tiene el podrías tomar?"
+        - input tom | asign ninguna:descono
+        - if tom == "descono": then solve personaje
+        - if not tom == "descono" then say "sería interesante que intentarás hacer lo mismo que el"
+
+    personaje:  
+        - say "Si existiese alguien que le gustase lo que quisieras hacer y te agradase ¿cómo crees que sería esa persona?"
+        - input alguiengus
+        - say "¿Que otras actividades haría?"
+        - input activiha
+        - say "¿Porque crees que las haría?"
+        - input crehara
+        - say "¿Cómo crees que se vestiría?"
+        - input crevest
+        - say "¿Cómo se llamaría?"
+        - input sellama
+        - say "Si fuese un personaje ¿cual sería su historía?"
+        - input suhistoria
+        - say "sería interesante que actuaras como el"
+
+    problema:
+        - say "Si existiese alguien que tuviese ese mismo obstaculo que crees que haría?"
+        - input alguienmis
+        - say "¿Que otras actividades haría?"
+        - input actividadhar
+        - say "¿Que crees que le ayudaría a superar ese obstaculo?"
+        - input superaobs
+        - say "Si fuese un personaje ¿cual una historía donde esa persona halla superado ese obstaculo?"
+        - input cualhistor
+        - say "sería interesante que actuaras como el"
+
+#solución de problemas
+    solucion:
+        - say "ha habido alguna ocasión en la que tuviste esos obstaculos"
+        - input obst | asign si:afi  no:niega
+        - if obst== "afi" then say "Que hiciste en esa ocasion?"
+        - say "sería interesante que intentarás volver a repetir eso"
+        - if obst == "niega" then solve problema   
+ #Especifico       
+    obstac:
+        - say "¿Cuales son los posibles obtaculos que te impidan alcanzar lo que deseas?"
+        - input obsta | asign ninguno:break
+        - if obsta == "break" then exit
+        - say "¿Consideras que podrías hacer algo para sobrepasarlo?"
+        - input haceralgo
+        - say "¿Quien crees que podría ayudarte?"
+        - input quienpodría
+        - say "¿Consideras que solo necesitas información para solucionarlo?"
+        - input info | asign si:afi no:niega
+        - if info == "afi" then say "Sería interesante que lo investigaras"
+        - if info == "niega" then solve cuenta
+        
+    cuenta:
+        - say "consideras lo puedes solucionar por tu cuenta"
+        - input cuent | asign si:afi no:niega
+        - if info == "afi" then solve halg
+        - if info == "niega" then solve cambio
+
+#propuesta
+    caracrefin:
+        - say "¿Considera que el objetivo que deseas realizar es suficientemente específico? "
+        - input conc | asign no:niega
+        - if conc == "niega" then say "Como podría ser mas especifico?"
+        - input especpodri
+        - solve cambio   
+   
+#Evaluación del progreso
+    evalua:
+        - say "¿Del 1 al 10 que tan satisfecho te encuentras de tus resultados?"
+        - input del1al10
+        - say "¿Qué indicará que las cosas siguen en la dirección adecuada?"
+        - input indicara
+
+#Expectativas de reforzamiento
+    cambio:
+        - say "¿te gustaría cambiar tu objetivo?"
+        - input camb | asign si:afi no:iega
+        - if camb == "afi" then solve objetivo
+
+    expec:
+        - say "¿Que beneficios esperas de esa actividad?"
+        - input beneficios
+        - remember beneficios
+        - say "¿Consideras que la meta que me dijiste te conduce esa resultado?"
+        - input consiresu
+
+#propuesta
+    expecta:
+        - say "¿En cuanto tiempo crees que notarás los efectos deseados?"
+        - input tiempo
+        - remember tiempo
+        - say "¿Que cosas diferentes haras cuando lo consigas?"
+        - input cosasdif
+        - say "¿Cual será la primera señal de que vas por buen camino?"
+        - input señal
+        - remember señal
+        - say "¿Crees que es lo suficientmente claro lo que deseas hacer?"
+        - input clar | asign no:niega
+        - if "niega" then solve cambio
+     
+#Tiempo
+    tiemp:
+        - say "¿Que hora crees que sea buena para realizarlo?"
+        - input hora
+        - remember hora
+        - say "¿cuantas veces piensas en realizarlo durante la semana?"
+        - input piensasrealizar
+        - say "¿Cuanto tiempo crees tardar en realizar lo que deseas?"
+        - input creestardar
+
+#Recomendacion
+    recom:
+        - say "Te recomiendo que escribas tu objetivo en algún lugar"
+
+#Controlabilidad percibida
+    cotolabil:
+        - say "¿Quienes podrían ayudarte a realizar tus objetivos?"
+        - input redessocial
+        - solve halago 
+        - say "¿En donde tendrías que estar para poder hacer eso?"
+        - input lugarestar
+        - say "¿Conoces lo que necesitas para poder realizarlo?"
+        - input cono | asign si:afi no:niega
+        - if cono == "niega" then say "que conocimiento necesitas para realizarlo"
+        - input cononece
+        - say "sería bueno que lo investigases"
+  
+#planeación de tarea
+    lista:
+        - say "¿Que tareas especificas consideras que son necesarias para poder llegar al objetivo deseado?, Si lo enlistas tal vez sería más facil reconocerlo"
+        - input lis
+        - remember lis
+    
+#evaluacion segundo día
+#DIA 2    
+    D21:
+        - solve salu
+        - say "¿Que tal te fue con la tarea que te habías planteado?"
+        - input Tp
+
+    D22:
+        - say "¿Tuviste problemas con lo que querias?"
+        - input pan | asign si:afi no:niega
+        - if pan == "afi" then say "Que problema tuviste"
+
+    D23:
+        - say "¿Lograste realizar alguna de las tareas que te propusiste?"
+        - input pqn | asign si:afi no:niega
+        - if pqn == "afi" then solve felin
+        - if pqn == "niega" then solve consue
+  
+    eva2:
+        - say "Que cosas diferentes puedes hacer para mejorar la situacion"
+        - input cosasdif
+
+    comp:
+        - say "¿consideras tu objetivo completamente realizado?"
+        - input comp | asign si:afi no:niega
+        - if comp == "afi" then solve desarr
+        - if comp == "niega" then say "te deseo suerte"
+
+#Propuesta a desarrollo  
+    resumen:
+        - say " En resumen me dijiste que tu objetivo es {}".format(obje)
+        - say ", para ello la lista que me diste fue {}".format(lis) 
+        - say " Los beneficios que espersas son {}".format(beneficios) 
+        - say " para ello me dijiste que realizaras esas actividades a las {}".format(hora) 
+        - say "y esperas notar cambios en {}".format(tiempo) 
+        - solve recom
+
+    autop:
+        - say "Ante este tipo de situaciones siempre es bueno conocer que es lo que uno tiene. ¿Cuales consideras que son tus cualidades positivas que te ayudarían a continuar?"
+        - input loqueuno
+        - say "¿Como podrías utilizar esas cualidades para sentir más seguridad?"
+        - input cualidad
+        - say "¿Te sientes con más seguridad?"
+        - input a | asign si:afirma no:niega
+        - if a == "niega" then say ("A veces es más fácil externalizar la inseguridad en algo material, podrías hacer un muñeco de papel o dibujar una figura que simula ser la inseguridad y cuando comiences a sentirte así, decirle tus argumentos y tu contraargumentarlos sería interesante que hicieras el experimento")
+        - say "suerte"
+
+    dua1:
+        - say "Un placer soy un chatbot que te ayudará a desarrollar tus objetivos y a motivarte a concluirlos si te gustaría saber misfunciones escribe info, si te gustaría saber empezar escribe continuar"
+        - input er4 | asign continuar:continuar info:info
+        - if er4== "continuar" then solve desarr
+        - if er4== "info" then solve infor
+
+    infor:
+        - say "Mis funciones son las siguientes: si quieres que te diga mis funciones escribe funcione si quieres que de estrategias de autoestima escribe autop si quieres que cambiar la lista escribe lista si te gustaría cambiar el objetivo escribe cambio si lo que consideras hacer crees que es desagradable escribe probletarea"
+        - input informa | asign funciones:ar autop:br lista:cr cambio:dr probletarea:er
+        - if informa== "ar" then solve info
+        - if informa== "br" then solve autop
+        - if informa== "cr" then solve lista
+        - if informa== "dr" then solve cambio
+        - if informa== "er" then solve probletarea
+
+    desarr:
+        - solve salu
+        - solve objetivo
+        - solve lista
+        - solve tiemp
+        - solve expecta
+        - solve expec
+        - solve cotolabil
+        - solve caracrefin
+        - solve obstac
+        - solve Probletarea
+        - solve resumen
+        - solve deped
+
+    dia1:
+        - solve dua1
+  
+    dia2:
+        - solve pregn
+        - solve D21
+        - solve D22
+        - solve D23
+        - solve evalua
+        - solve eva2
+        - solve comp
+        - solve deped
+
+script:
+        - if not obje then solve dia1
+        - if obje then solve dia2
