@@ -1,0 +1,6 @@
+plugins:
+    - prerandom
+
+script:
+    - set_slot []
+    - prerandom.pregran('pregun')
